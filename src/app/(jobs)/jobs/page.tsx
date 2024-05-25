@@ -25,8 +25,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ROUTES } from "@/constants/routes";
+import isLoggedIn from "@/lib/auth";
 
-export default function Page() {
+export default async function Page() {
+	await isLoggedIn();
 	return (
 		<section className="bg-gray-100 py-8 px-6 md:px-10 dark:bg-gray-800 rounded-lg">
 			<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">

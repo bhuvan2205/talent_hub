@@ -3,14 +3,17 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import isLoggedIn from "@/lib/auth";
 
-export default async function page({
+export default async function Page({
 	params: { jobId },
 }: {
 	params: { jobId: string };
 }) {
+	await isLoggedIn();
+
 	return (
-		<section className="w-full py-12 md:py-24 lg:py-32">
+		<section className="w-full py-12 md:py-16 lg:py-20">
 			<div className="container grid gap-12 px-4 md:px-6 lg:grid-cols-[1fr_400px] lg:gap-16 xl:gap-24">
 				<div>
 					<div className="space-y-4">

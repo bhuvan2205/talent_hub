@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import { LocateIcon } from "lucide-react";
 import Image from "next/image";
-import React from "react";
 
 export default function PopularJobs() {
 	return (

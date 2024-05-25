@@ -1,6 +1,5 @@
 import { ROUTES } from "@/constants/routes";
 import Link from "next/link";
-import React from "react";
 import { BriefcaseIcon } from "lucide-react";
 import ThemeSwitch from "../ThemeSwitch";
 
