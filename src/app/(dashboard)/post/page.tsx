@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import isLoggedIn from "@/lib/auth";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export default async function Page() {
 	await isLoggedIn();
+	const { getRoles } = getKindeServerSession();
 
 	return (
 		<div className="col-span-2 md:col-span-2">

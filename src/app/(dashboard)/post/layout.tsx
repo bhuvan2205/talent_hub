@@ -8,8 +8,8 @@ export default function Layout({
 	analytics: ReactNode;
 }) {
 	return (
-		<main className="bg-gray-100 py-8 md:py-12 lg:py-16 px-6 md:px-10 rounded-lg dark:bg-gray-800">
-			<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+		<main className="bg-gray-100 py-8 px-6 md:px-10 rounded-lg dark:bg-gray-800">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 				{analytics}
 				{children}
 			</div>

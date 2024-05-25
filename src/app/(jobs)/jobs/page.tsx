@@ -31,7 +31,7 @@ export default async function Page() {
 	await isLoggedIn();
 	return (
 		<section className="bg-gray-100 py-8 px-6 md:px-10 dark:bg-gray-800 rounded-lg">
-			<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<div className="col-span-1 md:col-span-1">
 					<h2 className="text-2xl font-bold mb-4">Filters</h2>
 					<Accordion collapsible type="single">

@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import Footer from "@/components/Footer/Footer";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/context/theme-provider";
+import Header from "@/components/Header";
 
 const fontSans = FontSans({
 	subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange>
 					<div className="container mx-auto">
+						<Header />
 						{children}
 						<Footer />
 					</div>
