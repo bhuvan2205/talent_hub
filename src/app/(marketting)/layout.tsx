@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
-import Navbar from "./_components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar";
 
-export default function layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
 	return (
 		<>
 			<Navbar />
 			{children}
+			<Toaster />
 		</>
 	);
 }
