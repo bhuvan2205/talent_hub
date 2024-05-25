@@ -29,7 +29,7 @@ export default function Profile() {
 					</AvatarFallback>
 				</Avatar>
 			</PopoverTrigger>
-			<PopoverContent className="w-fit px-4">
+			<PopoverContent className="w-fit px-6">
 				<div>
 					<Link href={ROUTES.DASBOARD} className="py-2 flex items-center gap-2">
 						<User2 />
