@@ -9,3 +9,25 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Job {
+  id           String   @id @default(uuid())
+  active       Boolean  @default(true)
+  title        String
+  type         String
+  requirements String
+  location     String
+  benefits     String
+  company      Int
+  minSalary    Int
+  maxSalary    Int
+  authorId     String
+  companyId    String?
+  Company      Company? @relation(fields: [companyId], references: [id])
+}
+
+model Company {
+  id    String @id @default(uuid())
+  jobs  Job[]
+  about String
+}
