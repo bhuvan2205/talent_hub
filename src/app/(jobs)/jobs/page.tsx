@@ -5,13 +5,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-	CardDescription,
-	CardContent,
-} from "@/components/ui/card";
+
 import {
 	Pagination,
 	PaginationContent,
@@ -23,11 +17,16 @@ import {
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ROUTES } from "@/constants/routes";
 import isLoggedIn from "@/lib/auth";
+import { Suspense } from "react";
+import JobListing from "../_components/JobListing";
+import SkeletonJobListing from "../_components/SkeletonJobListing";
 
-export default async function Page() {
+export default async function Page({
+	searchParams: { page },
+}: {
+	searchParams: { page: number };
+}) {
 	await isLoggedIn();
 	return (
 		<section className="bg-gray-100 py-8 px-6 md:px-10 dark:bg-gray-800 rounded-lg">
@@ -129,100 +128,9 @@ export default async function Page() {
 					<div className="flex items-center justify-between mb-4">
 						<h2 className="text-2xl font-bold">Job Listings</h2>
 					</div>
-					<div className="grid gap-6">
-						<Card>
-							<CardHeader>
-								<div className="flex justify-between w-full">
-									<div>
-										<CardTitle>Software Engineer</CardTitle>
-										<CardDescription>
-											Acme Inc - San Francisco, CA
-										</CardDescription>
-									</div>
-									<Button asChild>
-										<Link href={`${ROUTES.APPLY_JOBS}/121`}>Apply Now</Link>
-									</Button>
-								</div>
-							</CardHeader>
-							<CardContent>
-								<p>
-									We are seeking an experienced Software Engineer to join our
-									growing team. You will be responsible for developing and
-									maintaining our web application, as well as collaborating with
-									cross-functional teams to deliver high-quality software
-									solutions.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader>
-								<div className="flex justify-between w-full">
-									<div>
-										<CardTitle>Product Manager</CardTitle>
-										<CardDescription>Acme Inc - Remote</CardDescription>
-									</div>
-									<Button asChild>
-										<Link href={`${ROUTES.APPLY_JOBS}/122`}>Apply Now</Link>
-									</Button>
-								</div>
-							</CardHeader>
-							<CardContent>
-								<p>
-									Our growing company is looking for a talented Product Manager
-									to lead the development of our flagship product. You will work
-									closely with the engineering and design teams to define
-									product requirements, prioritize features, and ensure
-									successful product launches.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader>
-								<div className="flex justify-between w-full">
-									<div>
-										<CardTitle>UI/UX Designer</CardTitle>
-										<CardDescription>Acme Inc - New York, NY</CardDescription>
-									</div>
-
-									<Button asChild>
-										<Link href={`${ROUTES.APPLY_JOBS}/123`}>Apply Now</Link>
-									</Button>
-								</div>
-							</CardHeader>
-							<CardContent>
-								<p>
-									We are seeking a skilled UI/UX Designer to join our creative
-									team. You will be responsible for designing intuitive and
-									visually appealing user interfaces for our web and mobile
-									applications, as well as conducting user research and
-									usability testing.
-								</p>
-							</CardContent>
-						</Card>
-					</div>
-					<div className="flex justify-center mt-8">
-						<Pagination>
-							<PaginationContent>
-								<PaginationItem>
-									<PaginationPrevious href="#" />
-								</PaginationItem>
-								<PaginationItem>
-									<PaginationLink href="#">1</PaginationLink>
-								</PaginationItem>
-								<PaginationItem>
-									<PaginationLink href="#" isActive>
-										2
-									</PaginationLink>
-								</PaginationItem>
-								<PaginationItem>
-									<PaginationLink href="#">3</PaginationLink>
-								</PaginationItem>
-								<PaginationItem>
-									<PaginationNext href="#" />
-								</PaginationItem>
-							</PaginationContent>
-						</Pagination>
-					</div>
+					<Suspense fallback={<SkeletonJobListing />}>
+						<JobListing page={page} />
+					</Suspense>
 				</div>
 			</div>
 		</section>

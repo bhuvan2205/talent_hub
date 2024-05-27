@@ -5,6 +5,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Development database configuration
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
