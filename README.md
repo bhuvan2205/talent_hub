@@ -2,20 +2,35 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started 
 
-First, setup the Kinde Auth 
+**Install the packages** in your local
+
+```
+npm i
+```
+
+First, setup the **Kinde Auth** 
 
 Create an account [here](http://localhost:3000) and add your keys in your .env file
 
 KINDE_CLIENT_ID=***
+
 KINDE_CLIENT_SECRET=***
+
 KINDE_ISSUER_URL=***
+
 KINDE_SITE_URL=http://localhost:3000
+
 KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+
 KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/dashboard
 
-Add your Database URL to your env file
+
+
+Add your **Database URL** to your env file
 
 DATABASE_URL=***
+
+
 
 The, run the following seeding script to get some data in the database
 
@@ -23,16 +38,10 @@ The, run the following seeding script to get some data in the database
 npx prisma db seed
 ```
 
-Finally, run the development server:
+Finally, **run the development server**:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
