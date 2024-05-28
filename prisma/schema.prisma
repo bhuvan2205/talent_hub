@@ -29,8 +29,9 @@ model Job {
 }
 
 model Company {
-  id    String @id @default(uuid())
-  name  String
-  jobs  Job[]
-  about String
+  id     String @id @default(uuid())
+  name   String
+  jobs   Job[]
+  about  String
+  imgURL String
 }

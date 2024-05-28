@@ -9,6 +9,7 @@ async function main() {
 	const company1 = await prisma.company.create({
 		data: {
 			name: "Acme Inc.",
+			imgURL: "/amec.png",
 			about:
 				"Acme Inc. is a leading technology company that specializes in building innovative web applications. We have been in business for over 10 years and have a strong track record of delivering high-quality solutions to our clients. Our team is composed of talented engineers, designers, and product managers who are passionate about their work. We value collaboration, creativity, and continuous learning, and we strive to create a positive and inclusive work environment.",
 		},
@@ -17,6 +18,7 @@ async function main() {
 	const company2 = await prisma.company.create({
 		data: {
 			name: "Altudo",
+			imgURL: "/altudo.jpeg",
 			about:
 				"Altudo, We are a global digital marketing and technology consulting company, focused on creating 1:1 personalized, seamless experiences across channels and optimizing your customer experience for business impact. We have completed over 2000+ projects for 45+ Fortune 500 companies across CPG, Legal, Manufacturing, Technology, Financial Services, and Insurance.",
 		},

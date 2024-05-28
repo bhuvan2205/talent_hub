@@ -5,9 +5,11 @@ import {
 	CardContent,
 	CardFooter,
 } from "@/components/ui/card";
+import { ROUTES } from "@/constants/routes";
 import { getLatestJobs } from "@/data/job";
 import { LocateIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function PopularJobs() {
 	const jobs = await getLatestJobs();
@@ -32,16 +34,18 @@ export default async function PopularJobs() {
 											alt="Company Logo"
 											className="rounded-md overflow-hidden"
 											height="40"
-											src="/placeholder.svg"
+											src={job.company?.imgURL as string}
 											style={{
 												aspectRatio: "40/40",
 												objectFit: "cover",
 											}}
 											width="40"
 										/>
-										<div>
-											<h3 className="text-base font-semibold">{job.title}</h3>
-											<p className="text-sm text-gray-500 dark:text-gray-400">
+										<div className="max-w-fit overflow-hidden">
+											<h3 className="text-base font-semibold truncate">
+												{job.title}
+											</h3>
+											<p className="text-sm text-left text-gray-500 dark:text-gray-400">
 												{job?.company?.name}
 											</p>
 										</div>
@@ -58,7 +62,11 @@ export default async function PopularJobs() {
 											<LocateIcon className="h-4 w-4" />
 											<span>{job.location}</span>
 										</div>
-										<Button variant="link">Apply Now</Button>
+										<Button variant="link" asChild>
+											<Link href={`${ROUTES.APPLY_JOBS}/${job.id}`}>
+												Apply Now
+											</Link>
+										</Button>
 									</div>
 								</CardFooter>
 							</Card>
