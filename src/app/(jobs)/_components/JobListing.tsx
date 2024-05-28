@@ -13,14 +13,51 @@ import {
 	Pagination,
 	PaginationContent,
 	PaginationItem,
-	PaginationPrevious,
-	PaginationLink,
-	PaginationNext,
 } from "@/components/ui/pagination";
+import { JOB_PER_PAGE } from "@/constants/jobs";
 
 export default async function JobListing({ page = 1 }: { page: number }) {
 	const { jobs, totalJobs } = await getAllJobs(page);
-	const length = Math.ceil(totalJobs / 3);
+	const totalPages = Math.ceil(totalJobs / JOB_PER_PAGE);
+
+	const getPaginationLinks = () => {
+		const pageLinks = [];
+		const maxLinks = JOB_PER_PAGE;
+		let startPage = Math.max(1, page - Math.floor(maxLinks / 2));
+		let endPage = Math.min(totalPages, startPage + maxLinks - 1);
+
+		if (endPage - startPage < maxLinks - 1) {
+			startPage = Math.max(1, endPage - maxLinks + 1);
+		}
+
+		for (let i = startPage; i <= endPage; i++) {
+			pageLinks.push(
+				<PaginationItem key={i} className="mx-1">
+					<Button asChild variant="outline">
+						<Link href={`/jobs?page=${i}`}>
+							<span className={i === page ? "active" : ""}>{i}</span>
+						</Link>
+					</Button>
+				</PaginationItem>
+			);
+		}
+		return pageLinks;
+	};
+
+	if (!jobs?.length) {
+		return (
+			<div className="grid gap-6">
+				<Card>
+					<CardHeader>No Jobs Found!</CardHeader>
+					<CardContent>
+						<Button asChild>
+							<Link href={`/`}>Go Home</Link>
+						</Button>
+					</CardContent>
+				</Card>
+			</div>
+		);
+	}
 
 	return (
 		<>
@@ -49,30 +86,26 @@ export default async function JobListing({ page = 1 }: { page: number }) {
 			<div className="flex justify-center mt-8">
 				<Pagination>
 					<PaginationContent>
-						<PaginationItem>
-							<PaginationPrevious
-								href={`/jobs?page=${
-									Number(page) - 1 > 1 ? Number(page) - 1 : 1
-								}`}
-							/>
+						<PaginationItem className="me-4">
+							{page > 1 && (
+								<Button asChild>
+									<Link href={`/jobs?page=${Number(page) - 1}`}>
+										<span>Prev</span>
+									</Link>
+								</Button>
+							)}
 						</PaginationItem>
-						{Array.from({ length })?.map((_, index) => {
-							return (
-								<PaginationItem key={`page-${index}`}>
-									<PaginationLink
-										href={`/jobs?page=${Number(index) + 1}`}
-										isActive={page === index + 1}>
-										{index + 1}
-									</PaginationLink>
-								</PaginationItem>
-							);
-						})}
-						<PaginationItem>
-							<PaginationNext
-								href={`/jobs?page=${
-									Number(page) + 1 < length ? Number(page) + 1 : length
-								}`}
-							/>
+
+						{getPaginationLinks()}
+
+						<PaginationItem className="ms-4">
+							{page < totalPages && (
+								<Button asChild>
+									<Link href={`/jobs?page=${Number(page) + 1}`}>
+										<span>Next</span>
+									</Link>
+								</Button>
+							)}
 						</PaginationItem>
 					</PaginationContent>
 				</Pagination>

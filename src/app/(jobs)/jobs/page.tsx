@@ -27,7 +27,6 @@ export default async function Page({
 }: {
 	searchParams: { page: number };
 }) {
-	await isLoggedIn();
 	return (
 		<section className="bg-gray-100 py-8 px-6 md:px-10 dark:bg-gray-800 rounded-lg">
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
