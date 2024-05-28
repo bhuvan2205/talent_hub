@@ -9,14 +9,28 @@ export const queryAllJobs = async (page = 1, pageSize = JOB_PER_PAGE) => {
 		skip,
 		take: pageSize,
 		include: {
-			Company: true, // Include the related Company data
+			company: true,
 		},
 	});
 
-	// Optionally, get the total count of jobs for pagination info
 	const totalJobs = await prisma.job.count({
 		where: { active: true },
 	});
 
 	return { jobs, totalJobs, page, pageSize };
+};
+
+export const queryLatestJobs = async () => {
+	const jobs = await prisma.job.findMany({
+		where: { active: true },
+		take: 4,
+		include: {
+			company: true,
+		},
+		orderBy: {
+			createdAt: "desc",
+		},
+	});
+
+	return jobs;
 };

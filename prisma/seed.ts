@@ -8,6 +8,7 @@ async function main() {
 
 	const company1 = await prisma.company.create({
 		data: {
+			name: "Acme Inc.",
 			about:
 				"Acme Inc. is a leading technology company that specializes in building innovative web applications. We have been in business for over 10 years and have a strong track record of delivering high-quality solutions to our clients. Our team is composed of talented engineers, designers, and product managers who are passionate about their work. We value collaboration, creativity, and continuous learning, and we strive to create a positive and inclusive work environment.",
 		},
@@ -15,6 +16,7 @@ async function main() {
 
 	const company2 = await prisma.company.create({
 		data: {
+			name: "Altudo",
 			about:
 				"Altudo, We are a global digital marketing and technology consulting company, focused on creating 1:1 personalized, seamless experiences across channels and optimizing your customer experience for business impact. We have completed over 2000+ projects for 45+ Fortune 500 companies across CPG, Legal, Manufacturing, Technology, Financial Services, and Insurance.",
 		},
@@ -36,7 +38,6 @@ async function main() {
             401(k) retirement plan with employer matching
             Generous paid time off and holidays
             Professional development opportunities`,
-			company: 1,
 			minSalary: 60000,
 			maxSalary: 100000,
 			authorId: "1",
@@ -59,7 +60,6 @@ async function main() {
             401(k) retirement plan with employer matching
             Generous paid time off and holidays
             Professional development opportunities`,
-			company: 1,
 			minSalary: 70000,
 			maxSalary: 120000,
 			authorId: "1",
@@ -82,7 +82,6 @@ async function main() {
             401(k) retirement plan with employer matching
             Generous paid time off and holidays
             Professional development opportunities`,
-			company: 2,
 			minSalary: 50000,
 			maxSalary: 90000,
 			authorId: "1",
@@ -105,7 +104,6 @@ async function main() {
             401(k) retirement plan with employer matching
             Generous paid time off and holidays
             Professional development opportunities`,
-			company: 1,
 			minSalary: 80000,
 			maxSalary: 130000,
 			authorId: "2",

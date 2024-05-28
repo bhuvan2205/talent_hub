@@ -69,7 +69,7 @@ export default async function JobListing({ page = 1 }: { page: number }) {
 								<div>
 									<CardTitle>{job.title}</CardTitle>
 									<CardDescription>
-										{job.company} - {job.location}
+										{job.company?.name} - {job.location}
 									</CardDescription>
 								</div>
 								<Button asChild>
