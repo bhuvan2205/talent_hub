@@ -34,7 +34,7 @@ export default async function Profile() {
 					<PopoverContent className="w-fit px-6">
 						<div>
 							<Link
-								href={ROUTES.DASBOARD}
+								href={ROUTES.DASHBOARD}
 								className="py-2 flex items-center gap-2">
 								<User2 />
 								<span>{user?.given_name}</span>
