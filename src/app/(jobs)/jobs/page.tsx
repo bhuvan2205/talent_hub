@@ -1,26 +1,15 @@
-import { SearchIcon } from "lucide-react";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-
-import {
-	Pagination,
-	PaginationContent,
-	PaginationItem,
-	PaginationPrevious,
-	PaginationLink,
-	PaginationNext,
-} from "@/components/ui/pagination";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import isLoggedIn from "@/lib/auth";
-import { Suspense } from "react";
 import JobListing from "../_components/JobListing";
 import SkeletonJobListing from "../_components/SkeletonJobListing";
+import { Suspense } from "react";
 
 export default async function Page({
 	searchParams: { page },

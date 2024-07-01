@@ -73,7 +73,7 @@ export default async function JobListing({ page = 1 }: { page: number }) {
 									</CardDescription>
 								</div>
 								<Button asChild>
-									<Link href={`${ROUTES.APPLY_JOBS}/121`}>Apply Now</Link>
+									<Link href={`${ROUTES.APPLY_JOBS}/${job?.id}`}>Apply Now</Link>
 								</Button>
 							</div>
 						</CardHeader>

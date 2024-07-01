@@ -17,6 +17,7 @@ model Job {
   title        String
   type         String
   requirements String
+  roles        String
   location     String
   benefits     String
   minSalary    Int
