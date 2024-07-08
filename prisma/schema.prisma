@@ -12,8 +12,8 @@ datasource db {
 }
 
 model Job {
-  id           String   @id @default(uuid())
-  active       Boolean  @default(true)
+  id           String           @id @default(uuid())
+  active       Boolean          @default(true)
   title        String
   type         String
   requirements String
@@ -24,9 +24,10 @@ model Job {
   maxSalary    Int
   authorId     String
   companyId    String?
-  company      Company? @relation(fields: [companyId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  company      Company?         @relation(fields: [companyId], references: [id])
+  applications JobApplication[] @relation
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
 }
 
 model Company {
@@ -35,4 +36,17 @@ model Company {
   jobs   Job[]
   about  String
   imgURL String
+}
+
+model JobApplication {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  email     String
+  phone     String
+  resume    String
+  jobId     String
+  job       Job      @relation(fields: [jobId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

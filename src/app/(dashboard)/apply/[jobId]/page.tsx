@@ -1,11 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import prisma from "@/config/db";
 import isLoggedIn from "@/lib/auth";
 import { notFound } from "next/navigation";
+import JobApplyForm from "./_components/JobApplyForm";
 
 export default async function Page({
   params: { jobId },
@@ -41,31 +38,7 @@ export default async function Page({
               {job?.roles}
             </div>
           </div>
-          <div className="mt-8 space-y-4">
-            <div>
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Enter your name" />
-            </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" placeholder="Enter your email" type="email" />
-            </div>
-            <div>
-              <Label htmlFor="resume">Resume</Label>
-              <Input id="resume" type="file" />
-            </div>
-            <div>
-              <Label htmlFor="cover-letter">Cover Letter</Label>
-              <Textarea
-                className="min-h-[150px]"
-                id="cover-letter"
-                placeholder="Write your cover letter"
-              />
-            </div>
-            <Button className="w-full" type="submit">
-              Apply Now
-            </Button>
-          </div>
+          <JobApplyForm jobId={jobId} />
         </div>
         <div className="space-y-6 lg:sticky lg:top-6">
           <Card>
