@@ -1,8 +1,10 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import prisma from "@/config/db";
 import isLoggedIn from "@/lib/auth";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import JobApplyForm from "./_components/JobApplyForm";
+import { ROUTES } from "@/constants/routes";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export default async function Page({
   params: { jobId },
@@ -10,6 +12,12 @@ export default async function Page({
   params: { jobId: string };
 }) {
   await isLoggedIn();
+  const { getPermission } = getKindeServerSession();
+  const hasPermission = await getPermission("apply:job");
+  if (!hasPermission?.isGranted) {
+    redirect(ROUTES.DASHBOARD);
+  }
+
   const job = await prisma.job.findUnique({
     where: {
       id: jobId,

@@ -105,7 +105,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
             onModelChange={(value: string) => setValue("experience", value)}
             config={{
               placeholderText: "Write your experience...",
-              charCounterMax: 2000,
+              charCounterMax: 25000,
               charCounterCount: true,
             }}
           />

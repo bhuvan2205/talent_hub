@@ -115,10 +115,11 @@ export default function PostForm({ companies }: { companies: Company[] }) {
       <div className="my-4">
         <Label htmlFor="roles">Roles</Label>
         <FroalaEditor
+          tag="textarea"
           onModelChange={(value: string) => setValue("roles", value)}
           config={{
             placeholderText: "Enter job roles...",
-            charCounterMax: 2000,
+            charCounterMax: 1000,
             charCounterCount: true,
           }}
         />
@@ -130,9 +131,10 @@ export default function PostForm({ companies }: { companies: Company[] }) {
         <Label htmlFor="cover-letter">Requirements</Label>
         <FroalaEditor
           onModelChange={(value: string) => setValue("requirements", value)}
+          tag="textarea"
           config={{
             placeholderText: "Enter job requirements...",
-            charCounterMax: 2000,
+            charCounterMax: 1250,
             charCounterCount: true,
           }}
         />
@@ -171,15 +173,13 @@ export default function PostForm({ companies }: { companies: Company[] }) {
       <div className="my-4">
         <Label htmlFor="benefits">Benefits</Label>
         <FroalaEditor
-         
-		  tag='textarea'
+          tag="textarea"
           config={{
             placeholderText: "Enter job benefits...",
-            charCounterMax: 2000,
+            charCounterMax: 1250,
             charCounterCount: true,
           }}
-		  onModelChange={(value: string) => {
-            console.log("🚀 ~ PostForm ~ value:", value);
+          onModelChange={(value: string) => {
             setValue("benefits", value);
           }}
         />

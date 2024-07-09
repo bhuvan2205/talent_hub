@@ -1,53 +1,74 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import {
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-} from "@/components/ui/popover";
-import { User2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { AppWindow, LogOut, User } from "lucide-react";
+import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { ROUTES } from "@/constants/routes";
 import Link from "next/link";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+} from "../ui/dropdown-menu";
 
 export default async function Profile() {
-	const { getUser, isAuthenticated } = getKindeServerSession();
-	const isLoggedIn = await isAuthenticated();
-	const user = await getUser();
+  const { getUser, isAuthenticated } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
+  const user = await getUser();
 
-	return (
-		<>
-			{isLoggedIn && (
-				<Popover>
-					<PopoverTrigger asChild>
-						<Avatar className="cursor-pointer">
-							<AvatarImage
-								src={user?.picture as string}
-								alt={user?.given_name as string}
-							/>
-							<AvatarFallback>
-								{user?.given_name?.at(0)?.toUpperCase()}
-							</AvatarFallback>
-						</Avatar>
-					</PopoverTrigger>
-					<PopoverContent className="w-fit px-6">
-						<div>
-							<Link
-								href={ROUTES.DASHBOARD}
-								className="py-2 flex items-center gap-2">
-								<User2 />
-								<span>{user?.given_name}</span>
-							</Link>
-						</div>
-						<div className="py-2">
-							<Badge className="cursor-pointer w-full">
-								<LogoutLink className="text-center w-full">Log out</LogoutLink>
-							</Badge>
-						</div>
-					</PopoverContent>
-				</Popover>
-			)}
-		</>
-	);
+  return (
+    <>
+      {isLoggedIn ? (
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="cursor-pointer">
+                <AvatarImage
+                  src={user?.picture as string}
+                  alt={user?.given_name as string}
+                />
+                <AvatarFallback>
+                  {user?.given_name?.at(0)?.toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link href={ROUTES.DASHBOARD}>Dashboard</Link>
+                  <DropdownMenuShortcut>
+                    <User />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={ROUTES.ABOUT}>Applied Jobs</Link>
+                  <DropdownMenuShortcut>
+                    <AppWindow />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <LogoutLink className="w-full font-semibold">Log out</LogoutLink>
+                <DropdownMenuShortcut>
+                  <LogOut />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
+      ) : (
+        <Button asChild>
+          <LoginLink>Sign in</LoginLink>
+        </Button>
+      )}
+    </>
+  );
 }
