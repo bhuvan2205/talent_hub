@@ -11,19 +11,19 @@ export default function ActionResponse({ result }: Props) {
   return (
     <>
       {serverError ? (
-        <div className="my-2 text-red-500">
+        <div className="text-red-500">
           <p>{serverError}</p>
         </div>
       ) : null}
 
       {fetchError ? (
-        <div className="my-2 text-red-500">
+        <div className="text-red-500">
           <p>{fetchError}</p>
         </div>
       ) : null}
 
       {validationErrors ? (
-        <div className="my-2 text-red-500">
+        <div className="text-red-500">
           {Object.keys(validationErrors).map((key) => (
             <p key={key}>{`${key}: ${
               validationErrors &&
