@@ -107,11 +107,25 @@ export default function PostForm({ companies }: { companies: Company[] }) {
 				</div>
 			</div>
 			<div className="my-4">
+				<Label htmlFor="cover-letter">Roles</Label>
+				<Textarea
+					className="min-h-[100px]"
+					id="cover-letter"
+					placeholder="Enter job roles"
+					{...register("roles")}
+				/>
+				{errors?.roles && (
+					<small className="text-red-500">
+						{errors?.roles?.message}
+					</small>
+				)}
+			</div>
+			<div className="my-4">
 				<Label htmlFor="cover-letter">Requirements</Label>
 				<Textarea
 					className="min-h-[120px]"
 					id="cover-letter"
-					placeholder="Enter your job requirements"
+					placeholder="Enter job requirements"
 					{...register("requirements")}
 				/>
 				{errors?.requirements && (

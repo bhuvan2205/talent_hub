@@ -13,6 +13,10 @@ export const createJobSchema = z
       required_error: "Company is required",
     }),
     location: z.string().min(4, "Enter valid location"),
+    roles: z
+      .string()
+      .min(20, "Minimum 20 characters is required")
+      .max(750, "Cannot exceed 750 characters"),
     requirements: z
       .string()
       .min(20, "Minimum 20 characters is required")

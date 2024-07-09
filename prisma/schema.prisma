@@ -31,11 +31,12 @@ model Job {
 }
 
 model Company {
-  id     String @id @default(uuid())
-  name   String
-  jobs   Job[]
-  about  String
-  imgURL String
+  id       String @id @default(uuid())
+  name     String
+  location String
+  jobs     Job[]
+  about    String
+  imgURL   String
 }
 
 model JobApplication {

@@ -25,19 +25,15 @@ export const postJob = async (formData: unknown) => {
       message: "Invalid form data.",
     };
   }
-  try {
-    await prisma.job.create({
-      data: {
-        ...data,
-        authorId: user?.id!,
-      },
-    });
+  await prisma.job.create({
+    data: {
+      ...data,
+      authorId: user?.id!,
+    },
+  });
 
-    revalidateTag("jobs");
-    redirect(ROUTES.JOBS);
-  } catch (error) {
-    console.log("🚀 ~ postJob ~ error:", error);
-  }
+  revalidateTag("jobs");
+  redirect(ROUTES.JOBS);
 };
 
 export const postJobApplication = async (formData: unknown) => {
@@ -59,14 +55,12 @@ export const postJobApplication = async (formData: unknown) => {
     };
   }
 
-  try {
-    await prisma.jobApplication.create({
-      data: {
-        ...data,
-        userId: user?.id!,
-      },
-    });
-  } catch (error) {
-    console.log("🚀 ~ postJobApplication ~ error:", error);
-  }
+  await prisma.jobApplication.create({
+    data: {
+      ...data,
+      userId: user?.id!,
+    },
+  });
+
+  redirect(ROUTES.DASHBOARD);
 };
