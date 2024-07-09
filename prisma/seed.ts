@@ -4,7 +4,9 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.company.deleteMany();
+  await prisma.jobApplication.deleteMany();
   await prisma.job.deleteMany();
+
 
   const company1 = await prisma.company.create({
     data: {

@@ -24,7 +24,7 @@ export default async function Page({
   }
 
   return (
-    <section className="w-full py-12 md:py-16 lg:py-20 bg-gray-100 dark:bg-gray-800">
+    <div className="w-full py-12 md:py-16 lg:py-20 bg-gray-100 dark:bg-gray-800">
       <div className="container grid gap-12 px-4 md:px-6 lg:grid-cols-[1fr_400px] lg:gap-16 xl:gap-24">
         <div>
           <div className="space-y-4">
@@ -75,6 +75,6 @@ export default async function Page({
           </Card>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

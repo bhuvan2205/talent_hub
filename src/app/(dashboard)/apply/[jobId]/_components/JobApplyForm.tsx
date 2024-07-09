@@ -2,7 +2,6 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +14,9 @@ import { postSafeJobApplication } from "@/actions/jobs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import ActionResponse from "@/components/ActionResponse/ActionResponse";
+import FroalaEditor from "react-froala-wysiwyg";
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
 
 type JobApplyFormProps = {
   jobId: string;
@@ -24,6 +26,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<createJobApplicationType>({
     resolver: zodResolver(createJobApplicationSchema),
@@ -57,7 +60,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
   return (
     <>
       <ActionResponse result={result} />
-      <form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label htmlFor="name">Name</Label>
           <Input
@@ -94,14 +97,18 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
         </div>
         <div>
           <Label htmlFor="resume">Resume</Label>
-          <Textarea
-            className="min-h-[150px]"
-            id="resume"
-            placeholder="Write your resume"
-            {...register("resume")}
+          <FroalaEditor
+            onModelChange={(value: string) => setValue("experience", value)}
+            config={{
+              placeholderText: "Write your experience...",
+              charCounterMax: 2000,
+              charCounterCount: true,
+            }}
           />
-          {errors?.resume && (
-            <small className="text-red-500">{errors?.resume?.message}</small>
+          {errors?.experience && (
+            <small className="text-red-500">
+              {errors?.experience?.message}
+            </small>
           )}
         </div>
 

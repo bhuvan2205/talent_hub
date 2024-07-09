@@ -15,11 +15,11 @@ export const createJobSchema = z
     location: z.string().min(4, "Enter valid location"),
     roles: z
       .string()
-      .min(20, "Minimum 20 characters is required")
-      .max(750, "Cannot exceed 750 characters"),
+      .min(250, "Minimum 250 characters is required")
+      .max(1000, "Cannot exceed 750 characters"),
     requirements: z
       .string()
-      .min(20, "Minimum 20 characters is required")
+      .min(250, "Minimum 250 characters is required")
       .max(1250, "Cannot exceed 1250 characters"),
     minSalary: z.coerce
       .number({
@@ -39,12 +39,12 @@ export const createJobSchema = z
       .min(1000, { message: "Maximum salary should be 1000" }),
     benefits: z
       .string()
-      .min(20, "Minimum 20 characters is required")
-      .max(1000, "Cannot exceed 1200 characters"),
+      .min(250, "Minimum 250 characters is required")
+      .max(1250, "Cannot exceed 1250 characters"),
   })
   .refine((data) => data.maxSalary > data.minSalary, {
     message: "Maximum salary must be greater than minimum salary",
-    path: ["maxSalary"], // path of error
+    path: ["maxSalary"],
   });
 
 export type createJobSchemaType = z.infer<typeof createJobSchema>;
@@ -56,7 +56,10 @@ export const createJobApplicationSchema = z.object({
     .min(10, { message: "Phone number must be at least 10 digits" })
     .regex(/^\d+$/, { message: "Phone number must contain only digits" }),
   email: z.string().email({ message: "Invalid email address" }),
-  resume: z.string().min(30, { message: "Resume is required" }),
+  experience: z
+    .string()
+    .min(500, { message: "Minimum 1000 characters is required" })
+    .max(25000, "Cannot exceed 1200 characters"),
 });
 
 export const extendedJobApplicationSchema = createJobApplicationSchema.extend({

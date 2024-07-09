@@ -9,7 +9,7 @@ type Props = {
 export default function ActionResponse({ result }: Props) {
   const { serverError, fetchError, validationErrors } = result || {};
   return (
-    <>
+    <section className="my-4">
       {serverError ? (
         <div className="text-red-500">
           <p>{serverError}</p>
@@ -32,6 +32,6 @@ export default function ActionResponse({ result }: Props) {
           ))}
         </div>
       ) : null}
-    </>
+    </section>
   );
 }
