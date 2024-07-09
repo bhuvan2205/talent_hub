@@ -37,34 +37,6 @@ export const postJob = async (formData: unknown) => {
   redirect(ROUTES.JOBS);
 };
 
-// export const postJobApplication = async (formData: unknown) => {
-//   await isLoggedIn();
-//   const { getUser, getPermission } = getKindeServerSession();
-//   const hasPermission = await getPermission("apply:job");
-
-//   if (!hasPermission?.isGranted) {
-//     return { message: "User has no access!" };
-//   }
-
-//   const user = await getUser();
-
-//   const { success, data } = extendedJobApplicationSchema.safeParse(formData);
-
-//   if (!success) {
-//     return {
-//       message: "Invalid form data.",
-//     };
-//   }
-
-//   await prisma.jobApplication.create({
-//     data: {
-//       ...data,
-//       userId: user?.id!,
-//     },
-//   });
-
-//   redirect(ROUTES.DASHBOARD);
-// };
 
 export const postSafeJobApplication = actionClient
   .schema(extendedJobApplicationSchema)
