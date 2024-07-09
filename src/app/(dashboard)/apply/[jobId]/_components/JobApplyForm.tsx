@@ -17,6 +17,8 @@ import ActionResponse from "@/components/ActionResponse/ActionResponse";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/constants/routes";
 
 type JobApplyFormProps = {
   jobId: string;
@@ -32,6 +34,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
     resolver: zodResolver(createJobApplicationSchema),
   });
   const { toast } = useToast();
+  const router = useRouter();
 
   const { executeAsync, isExecuting, result } = useAction(
     postSafeJobApplication,
@@ -42,6 +45,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
           title: "Success! 🎉",
           description: "Job application has been Posted!",
         });
+        router.push(ROUTES.DASHBOARD)
       },
       onError: () => {
         toast({
