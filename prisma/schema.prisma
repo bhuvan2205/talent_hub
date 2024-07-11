@@ -40,14 +40,14 @@ model Company {
 }
 
 model JobApplication {
-  id         String   @id @default(uuid())
-  userId     String
-  name       String
-  email      String
-  phone      String
-  experience String
-  jobId      String
-  job        Job      @relation(fields: [jobId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  email     String
+  phone     String
+  resumeUrl String
+  jobId     String
+  job       Job      @relation(fields: [jobId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

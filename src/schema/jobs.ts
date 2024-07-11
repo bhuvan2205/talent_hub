@@ -50,16 +50,20 @@ export const createJobSchema = z
 export type createJobSchemaType = z.infer<typeof createJobSchema>;
 
 export const createJobApplicationSchema = z.object({
-  name: z.string().min(3, { message: "Name is required" }),
+  name: z
+    .string({ required_error: "Name is required" })
+    .min(3, { message: "Name must be at least 3 characters" }),
   phone: z
-    .string()
+    .string({ required_error: "Phone is required" })
     .min(10, { message: "Phone number must be at least 10 digits" })
     .regex(/^\d+$/, { message: "Phone number must contain only digits" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  experience: z
-    .string()
-    .min(500, { message: "Minimum 1000 characters is required" })
-    .max(25000, "Cannot exceed 1200 characters"),
+  email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Invalid email address" }),
+  resumeUrl: z.string({
+    required_error: "Resume is required",
+    invalid_type_error: "Please upload PDF only",
+  }),
 });
 
 export const extendedJobApplicationSchema = createJobApplicationSchema.extend({
