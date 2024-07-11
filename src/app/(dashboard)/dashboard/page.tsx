@@ -7,7 +7,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import prisma from "@/config/db";
+import { getJobApplicationsCount, getRecentJobApplications } from "@/data/user";
 import isLoggedIn from "@/lib/auth";
 import {
   BriefcaseIcon,
@@ -19,21 +19,9 @@ import {
 import Link from "next/link";
 
 export default async function Page() {
-  const jobApplicationsCount = await prisma.jobApplication.count();
-  const recentJobApplications = await prisma.jobApplication.findMany({
-    take: 3,
-    orderBy: {
-      createdAt: "desc",
-    },
-    include: {
-      job: {
-        include: {
-          company: true,
-        },
-      },
-    },
-  });
   await isLoggedIn();
+  const jobApplicationsCount = await getJobApplicationsCount();
+  const recentJobApplications = await getRecentJobApplications();
 
   return (
     <section className="bg-gray-100 py-8 px-6 md:px-10 dark:bg-gray-800 rounded-lg">

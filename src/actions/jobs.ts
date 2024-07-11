@@ -6,7 +6,7 @@ import { ROUTES } from "@/constants/routes";
 import isLoggedIn from "@/lib/auth";
 import { createJobSchema, extendedJobApplicationSchema } from "@/schema/jobs";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const postJob = async (formData: unknown) => {
@@ -36,7 +36,6 @@ export const postJob = async (formData: unknown) => {
   revalidateTag("jobs");
   redirect(ROUTES.JOBS);
 };
-
 
 export const postSafeJobApplication = actionClient
   .schema(extendedJobApplicationSchema)

@@ -50,7 +50,8 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
         });
         router.push(ROUTES.DASHBOARD);
       },
-      onError: () => {
+      onError: ({ error }) => {
+        console.log("🚀 ~ JobApplyForm ~ error:", error);
         toast({
           variant: "destructive",
           title: "Error",
@@ -80,17 +81,6 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
           )}
         </div>
         <div>
-          <Label htmlFor="phone">Phone</Label>
-          <Input
-            id="phone"
-            placeholder="Enter your phone"
-            {...register("phone")}
-          />
-          {errors?.phone && (
-            <small className="text-red-500">{errors?.phone?.message}</small>
-          )}
-        </div>
-        <div>
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
@@ -100,6 +90,17 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
           />
           {errors?.email && (
             <small className="text-red-500">{errors?.email?.message}</small>
+          )}
+        </div>
+        <div>
+          <Label htmlFor="phone">Phone</Label>
+          <Input
+            id="phone"
+            placeholder="Enter your phone"
+            {...register("phone")}
+          />
+          {errors?.phone && (
+            <small className="text-red-500">{errors?.phone?.message}</small>
           )}
         </div>
         <div className="flex flex-col">

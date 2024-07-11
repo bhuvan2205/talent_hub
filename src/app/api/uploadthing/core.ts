@@ -1,20 +1,17 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 
-const f = createUploadthing();
+const uploader = createUploadthing();
 
 const { getUser, getPermission } = getKindeServerSession();
 
 export const ourFileRouter = {
-  pdfUploader: f({ pdf: { maxFileSize: "4MB" } }).onUploadComplete(
-    async ({ file }) => {
-      console.log("file url", file.url);
-      return { message: `Pdf Upload Complete` };
-    }
-  ),
-  imageUploader: f({ image: { maxFileSize: "4MB" } })
-    .middleware(async ({ req }) => {
-      const hasPermission = await getPermission("post:job");
+  pdfUploader: uploader({ pdf: { maxFileSize: "4MB" } }).onUploadComplete(async () => {
+    return { message: `Pdf Upload Complete` };
+  }),
+  imageUploader: uploader({ image: { maxFileSize: "4MB" } })
+    .middleware(async () => {
+      const hasPermission = await getPermission("apply:job");
       const user = await getUser();
 
       if (!hasPermission?.isGranted || !user) {
