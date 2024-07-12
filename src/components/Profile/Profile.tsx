@@ -48,7 +48,7 @@ export default async function Profile() {
                   </DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={ROUTES.ABOUT}>Applied Jobs</Link>
+                  <Link href={ROUTES.JOBS}>Search Jobs</Link>
                   <DropdownMenuShortcut>
                     <AppWindow />
                   </DropdownMenuShortcut>
