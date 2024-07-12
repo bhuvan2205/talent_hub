@@ -19,12 +19,19 @@ import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@/lib/uploadthing";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 type JobApplyFormProps = {
   jobId: string;
+  user: KindeUser | null;
+  isAlreadyApplied: boolean;
 };
 
-export default function JobApplyForm({ jobId }: JobApplyFormProps) {
+export default function JobApplyForm({
+  jobId,
+  user,
+  isAlreadyApplied,
+}: JobApplyFormProps) {
   const {
     register,
     handleSubmit,
@@ -34,6 +41,10 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
     formState: { errors },
   } = useForm<createJobApplicationType>({
     resolver: zodResolver(createJobApplicationSchema),
+    defaultValues: {
+      name: user?.given_name ?? "",
+      email: user?.email ?? "",
+    },
   });
   const { resumeUrl } = getValues();
   const { toast } = useToast();
@@ -75,6 +86,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
             id="name"
             placeholder="Enter your name"
             {...register("name")}
+            disabled={!!user?.given_name}
           />
           {errors?.name && (
             <small className="text-red-500">{errors?.name?.message}</small>
@@ -87,6 +99,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
             placeholder="Enter your email"
             type="email"
             {...register("email")}
+            disabled={!!user?.email}
           />
           {errors?.email && (
             <small className="text-red-500">{errors?.email?.message}</small>
@@ -98,6 +111,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
             id="phone"
             placeholder="Enter your phone"
             {...register("phone")}
+            disabled={isAlreadyApplied}
           />
           {errors?.phone && (
             <small className="text-red-500">{errors?.phone?.message}</small>
@@ -107,6 +121,7 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
           <div className="flex gap-4">
             <UploadButton
               endpoint="pdfUploader"
+              disabled={isAlreadyApplied}
               onClientUploadComplete={(res) => {
                 setValue("resumeUrl", res?.at(0)?.url as string);
                 toast({
@@ -138,9 +153,23 @@ export default function JobApplyForm({ jobId }: JobApplyFormProps) {
             )}
           </p>
         </div>
-        <Button className="w-full" type="submit" disabled={isExecuting}>
-          {isExecuting ? "..." : "Apply Now"}
-        </Button>
+        {isAlreadyApplied ? (
+          <Button
+            className="w-full"
+            type="submit"
+            disabled
+          >
+            Already applied
+          </Button>
+        ) : (
+          <Button
+            className="w-full"
+            type="submit"
+            disabled={isExecuting || isAlreadyApplied}
+          >
+            {isExecuting ? "..." : "Apply Now"}
+          </Button>
+        )}
       </form>
     </>
   );

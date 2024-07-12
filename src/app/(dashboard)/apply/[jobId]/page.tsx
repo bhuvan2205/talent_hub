@@ -5,6 +5,8 @@ import { notFound, redirect } from "next/navigation";
 import JobApplyForm from "./_components/JobApplyForm";
 import { ROUTES } from "@/constants/routes";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { getRecentJobApplications } from "@/data/user";
+import { Badge } from "@/components/ui/badge";
 
 export default async function Page({
   params: { jobId },
@@ -12,7 +14,7 @@ export default async function Page({
   params: { jobId: string };
 }) {
   await isLoggedIn();
-  const { getPermission } = getKindeServerSession();
+  const { getPermission, getUser } = getKindeServerSession();
   const hasPermission = await getPermission("apply:job");
   if (!hasPermission?.isGranted) {
     redirect(ROUTES.DASHBOARD);
@@ -27,6 +29,14 @@ export default async function Page({
     },
   });
 
+  const user = await getUser();
+  const recentJobApplications = await getRecentJobApplications(
+    user?.id as string
+  );
+  const isAlreadyApplied = recentJobApplications.some(
+    (jobApplication) => jobApplication?.job?.id === jobId
+  );
+
   if (!job) {
     return notFound();
   }
@@ -36,8 +46,8 @@ export default async function Page({
       <div className="container grid gap-12 px-4 md:px-6 lg:grid-cols-[1fr_400px] lg:gap-16 xl:gap-24">
         <div>
           <div className="space-y-4">
-            <div className="inline-block rounded-lg py-1 text-sm">
-              Job Posting
+            <div className="flex items-center gap-1 text-sm">
+              Job Posting <Badge className="mx-2">Already applied</Badge>
             </div>
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               {job?.title}
@@ -46,7 +56,11 @@ export default async function Page({
               {job?.roles}
             </div>
           </div>
-          <JobApplyForm jobId={jobId} />
+          <JobApplyForm
+            user={user}
+            jobId={jobId}
+            isAlreadyApplied={isAlreadyApplied}
+          />
         </div>
         <div className="space-y-6 lg:sticky lg:top-6">
           <Card>

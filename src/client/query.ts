@@ -40,8 +40,13 @@ export const queryJobApplicationsCount = async () => {
   return count;
 };
 
-export const queryRecentJobApplications = async () => {
+export const queryRecentJobApplications = async (userId: string) => {
   const applications = await prisma.jobApplication.findMany({
+    where: {
+      userId: {
+        equals: userId,
+      },
+    },
     take: 3,
     orderBy: {
       createdAt: "desc",

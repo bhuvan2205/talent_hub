@@ -14,7 +14,7 @@ export const getJobApplicationsCount = unstable_cache(
 );
 
 export const getRecentJobApplications = unstable_cache(
-  queryRecentJobApplications,
+  (userId: string) => queryRecentJobApplications(userId),
   ["recent-job-application"],
   {
     revalidate: 10 * 1000,
