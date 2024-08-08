@@ -47,7 +47,10 @@ export default async function Page({
         <div>
           <div className="space-y-4">
             <div className="flex items-center gap-1 text-sm">
-              Job Posting <Badge className="mx-2">Already applied</Badge>
+              Job Posting
+              {isAlreadyApplied && (
+                <Badge className="mx-2">Already applied</Badge>
+              )}
             </div>
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               {job?.title}
