@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { getJobApplicationsCount, getRecentJobApplications } from "@/data/user";
 import isLoggedIn from "@/lib/auth";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import {
   BriefcaseIcon,
   StarIcon,
@@ -20,8 +21,10 @@ import Link from "next/link";
 
 export default async function Page() {
   await isLoggedIn();
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
   const jobApplicationsCount = await getJobApplicationsCount();
-  const recentJobApplications = await getRecentJobApplications();
+  const recentJobApplications = await getRecentJobApplications(user?.id as string);
 
   return (
     <section className="bg-gray-100 py-8 px-6 md:px-10 dark:bg-gray-800 rounded-lg">

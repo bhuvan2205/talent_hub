@@ -5,14 +5,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Development database configuration
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Job {
-  id           String           @id @default(uuid())
+  id           String           @id @default(uuid()) @map("_id")
   active       Boolean          @default(true)
   title        String
   type         String
@@ -31,7 +30,7 @@ model Job {
 }
 
 model Company {
-  id       String @id @default(uuid())
+  id       String @id @default(uuid()) @map("_id")
   name     String
   location String
   jobs     Job[]
@@ -40,7 +39,7 @@ model Company {
 }
 
 model JobApplication {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @map("_id")
   userId    String
   name      String
   email     String

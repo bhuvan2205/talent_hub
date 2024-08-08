@@ -12,7 +12,6 @@ import { useAction } from "next-safe-action/hooks";
 import { postSafeJobApplication } from "@/actions/jobs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import ActionResponse from "@/components/ActionResponse/ActionResponse";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import { useRouter } from "next/navigation";
@@ -50,7 +49,7 @@ export default function JobApplyForm({
   const { toast } = useToast();
   const router = useRouter();
 
-  const { executeAsync, isExecuting, result } = useAction(
+  const { executeAsync, isExecuting } = useAction(
     postSafeJobApplication,
     {
       onSuccess: () => {
@@ -78,7 +77,6 @@ export default function JobApplyForm({
 
   return (
     <>
-      <ActionResponse result={result} />
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label htmlFor="name">Name</Label>
