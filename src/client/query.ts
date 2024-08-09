@@ -59,5 +59,6 @@ export const queryRecentJobApplications = async (userId: string) => {
       },
     },
   });
+  console.log("🚀 ~ queryRecentJobApplications ~ applications:", applications);
   return applications;
 };

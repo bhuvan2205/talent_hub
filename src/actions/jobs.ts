@@ -54,6 +54,7 @@ export const postSafeJobApplication = actionClient
         userId: user?.id!,
       },
     });
+    revalidatePath(ROUTES.DASHBOARD);
 
     return {
       message: "Job application submitted!",
